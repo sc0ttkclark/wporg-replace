@@ -70,7 +70,6 @@ runs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
-      working-directory: ${{ github.action_path }}
     - name: Install NPM dependencies
       run: npm install
       working-directory: ${{ github.action_path }}
