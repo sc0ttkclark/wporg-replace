@@ -54,6 +54,7 @@ runs:
       id: npm-cache-dir
       shell: bash
       run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+      shell: bash
     - name: Setup NPM cache
       uses: actions/cache@v3
       id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
@@ -64,15 +65,20 @@ runs:
           ${{ runner.os }}-node-
     - name: Install NPM dependencies
       run: npm install
+      shell: bash
     - name: Update plugin version
       if: "${{ inputs.plugin_version != '' }}"
       run: npm explore wporg-replace-helper -- npm run update-plugin-version --plugin_version="${{ inputs.plugin_version }}" --plugin_version_constant_name="${{ inputs.plugin_version_constant_name }}" --plugin_file="${{ inputs.plugin_file }}" --plugin_path="${{ inputs.plugin_path }}"
+      shell: bash
     - name: Update tested WP version
       if: "${{ inputs.tested_wp_version != '' }}"
       run: npm explore wporg-replace-helper -- npm run update-tested-wp-version --tested_wp_version="${{ inputs.tested_wp_version }}" --tested_wp_version_constant_name="${{ inputs.tested_wp_version_constant_name }}" --plugin_file="${{ inputs.plugin_file }}" --plugin_path="${{ inputs.plugin_path }}"
+      shell: bash
     - name: Update minimum WP version
       if: "${{ inputs.minimum_wp_version != '' }}"
       run: npm explore wporg-replace-helper -- npm run update-minimum-wp-version --minimum_wp_version="${{ inputs.minimum_wp_version }}" --minimum_wp_version_constant_name="${{ inputs.minimum_wp_version_constant_name }}" --plugin_file="${{ inputs.plugin_file }}" --plugin_path="${{ inputs.plugin_path }}"
+      shell: bash
     - name: Update minimum PHP version
       if: "${{ inputs.minimum_php_version != '' }}"
       run: npm explore wporg-replace-helper -- npm run update-minimum-php-version --minimum_php_version="${{ inputs.minimum_php_version }}" --minimum_php_version_constant_name="${{ inputs.minimum_php_version_constant_name }}" --plugin_file="${{ inputs.plugin_file }}" --plugin_path="${{ inputs.plugin_path }}"
+      shell: bash
