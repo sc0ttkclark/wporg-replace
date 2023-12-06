@@ -19,21 +19,6 @@ inputs:
   plugin_file:
     description: 'Plugin file'
     required: false
-  plugin_file_replace:
-    description: 'Whether to replace text in the plugin file (if provided)'
-    required: false
-    type: boolean
-    default: true
-  readme_txt_replace:
-    description: 'Whether to replace text in the plugin readme.txt file'
-    required: false
-    type: boolean
-    default: true
-  package_json_replace:
-    description: 'Whether to replace text in the plugin package.json file'
-    required: false
-    type: boolean
-    default: true
 
 outputs:
   changes_made:
@@ -42,3 +27,37 @@ outputs:
 branding:
   icon: 'save'
   color: green
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.20.1'
+    - name: Get NPM cache directory to use
+      id: npm-cache-dir
+      shell: bash
+      run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+    - name: Setup NPM cache
+      uses: actions/cache@v3
+      id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+      with:
+        path: ${{ steps.npm-cache-dir.outputs.dir }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Install NPM wporg-replace-helper package
+      run: npm install https://github.com/sc0ttkclark/wporg-replace-helper
+    - name: Update plugin version
+      if: "${{ inputs.plugin_version != '' }}"
+      run: npm run update-version-number --version_number="${{ inputs.plugin_version }}" --plugin_file="${{ inputs.plugin_file }}"
+    - name: Update tested WP version
+      if: "${{ inputs.tested_wp_version != '' }}"
+      run: npm run update-version-number --tested_wp="${{ inputs.tested_wp_version }}" --plugin_file="${{ inputs.plugin_file }}"
+    - name: Update minimum WP version
+      if: "${{ inputs.minimum_wp_version != '' }}"
+      run: npm run update-version-number --minimum_wp="${{ inputs.minimum_wp_version }}" --plugin_file="${{ inputs.plugin_file }}"
+    - name: Update minimum PHP version
+      if: "${{ inputs.minimum_php_version != '' }}"
+      run: npm run update-version-number --required_php="${{ inputs.minimum_php_version }}" --plugin_file="${{ inputs.plugin_file }}"
