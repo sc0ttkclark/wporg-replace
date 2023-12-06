@@ -1,0 +1,8 @@
+{
+  "name": "wporg-replace",
+  "version": "1.0.0",
+  "description": "A helpful GitHub action that will handle replacing version numbers across plugin files.",
+  "dependencies": {
+    "sc0ttkclark/wporg-replace-helper": "^1.0.0"
+  }
+}
