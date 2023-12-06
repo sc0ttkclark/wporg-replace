@@ -1,0 +1,48 @@
+name: WordPress.org Text Replace
+description: 'A helpful GitHub action that will handle replacing version numbers across plugin files.'
+
+author: Scott Kingsley Clark <scott@skc.dev>
+
+inputs:
+  plugin_version:
+    description: 'Plugin version'
+    required: true
+  tested_wp_version:
+    description: 'Tested up to WP version'
+    required: false
+  minimum_wp_version:
+    description: 'Minimum WP version'
+    required: false
+  minimum_php_version:
+    description: 'Minimum PHP version'
+    required: false
+  plugin_file:
+    description: 'Plugin file'
+    required: false
+  plugin_file_replace:
+    description: 'Whether to replace text in the plugin file (if provided)'
+		required: false
+		type: boolean
+    default: true
+  readme_txt_replace:
+    description: 'Whether to replace text in the plugin readme.txt file'
+		required: false
+		type: boolean
+    default: true
+  package_json_replace:
+    description: 'Whether to replace text in the plugin package.json file'
+		required: false
+		type: boolean
+    default: true
+
+outputs:
+  changes_made:
+    description: Value is "true", if the repository changes were made from the replacement. Value is "false", if no changes were made.
+
+runs:
+  using: 'node20'
+  main: 'index.js'
+
+branding:
+  icon: 'save'
+  color: green
