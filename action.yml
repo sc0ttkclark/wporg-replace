@@ -52,6 +52,7 @@ runs:
         echo minimum_php_version_constant_name: ${{ inputs.minimum_php_version_constant_name }}
         echo plugin_file: ${{ inputs.plugin_file }}
         echo plugin_path: ${{ inputs.plugin_path }}
+      shell: bash
     - name: Set up Node.js
       uses: actions/setup-node@v1
       with:
