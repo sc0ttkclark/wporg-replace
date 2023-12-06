@@ -6,30 +6,30 @@ author: Scott Kingsley Clark <scott@skc.dev>
 inputs:
   plugin_version:
     description: 'Plugin version'
-    required: true
+    required: false
+  plugin_version_constant_name:
+    description: 'Plugin version constant name (if used)'
+    required: false
   tested_wp_version:
     description: 'Tested up to WP version'
+    required: false
+  tested_wp_version_constant_name:
+    description: 'Tested up to WP version constant name (if used)'
     required: false
   minimum_wp_version:
     description: 'Minimum WP version'
     required: false
+  minimum_wp_version_constant_name:
+    description: 'Minimum WP version constant name (if used)'
+    required: false
   minimum_php_version:
     description: 'Minimum PHP version'
     required: false
+  minimum_php_version_constant_name:
+    description: 'Minimum PHP version constant name (if used)'
+    required: false
   plugin_file:
     description: 'Plugin file'
-    required: false
-  plugin_version_constant_name:
-    description: 'Constant name (if any) for Plugin version'
-    required: false
-  tested_wp_version_constant_name:
-    description: 'Constant name (if any) for Tested up to WP version'
-    required: false
-  minimum_wp_version_constant_name:
-    description: 'Constant name (if any) for Minimum WP version'
-    required: false
-  minimum_php_version_constant_name:
-    description: 'Constant name (if any) for Minimum PHP version'
     required: false
 
 outputs:
@@ -63,13 +63,13 @@ runs:
       run: npm install https://github.com/sc0ttkclark/wporg-replace-helper
     - name: Update plugin version
       if: "${{ inputs.plugin_version != '' }}"
-      run: npm run update-version-number --version_number="${{ inputs.plugin_version }}" --plugin_file="${{ inputs.plugin_file }}" --plugin_version_constant_name="${{ inputs.plugin_version_constant_name }}"
+      run: npm run update-version-number --plugin_version="${{ inputs.plugin_version }}" --plugin_version_constant_name="${{ inputs.plugin_version_constant_name }}" --plugin_file="${{ inputs.plugin_file }}"
     - name: Update tested WP version
       if: "${{ inputs.tested_wp_version != '' }}"
-      run: npm run update-version-number --tested_wp="${{ inputs.tested_wp_version }}" --plugin_file="${{ inputs.plugin_file }}" --tested_wp_version_constant_name="${{ inputs.tested_wp_version_constant_name }}"
+      run: npm run update-version-number --tested_wp="${{ inputs.tested_wp_version }}" --tested_wp_constant_name="${{ inputs.tested_wp_version_constant_name }}" --plugin_file="${{ inputs.plugin_file }}"
     - name: Update minimum WP version
       if: "${{ inputs.minimum_wp_version != '' }}"
-      run: npm run update-version-number --minimum_wp="${{ inputs.minimum_wp_version }}" --plugin_file="${{ inputs.plugin_file }}" --minimum_wp_version_constant_name="${{ inputs.minimum_wp_version_constant_name }}"
+      run: npm run update-version-number --minimum_wp="${{ inputs.minimum_wp_version }}" --minimum_wp_constant_name="${{ inputs.minimum_wp_version_constant_name }}" --plugin_file="${{ inputs.plugin_file }}"
     - name: Update minimum PHP version
       if: "${{ inputs.minimum_php_version != '' }}"
-      run: npm run update-version-number --required_php="${{ inputs.minimum_php_version }}" --plugin_file="${{ inputs.plugin_file }}" --minimum_php_version_constant_name="${{ inputs.minimum_php_version_constant_name }}"
+      run: npm run update-version-number --required_php="${{ inputs.minimum_php_version }}" --required_php_constant_name="${{ inputs.minimum_php_version_constant_name }}" --plugin_file="${{ inputs.plugin_file }}"
