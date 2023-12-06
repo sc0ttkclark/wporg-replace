@@ -21,27 +21,23 @@ inputs:
     required: false
   plugin_file_replace:
     description: 'Whether to replace text in the plugin file (if provided)'
-		required: false
-		type: boolean
+    required: false
+    type: boolean
     default: true
   readme_txt_replace:
     description: 'Whether to replace text in the plugin readme.txt file'
-		required: false
-		type: boolean
+    required: false
+    type: boolean
     default: true
   package_json_replace:
     description: 'Whether to replace text in the plugin package.json file'
-		required: false
-		type: boolean
+    required: false
+    type: boolean
     default: true
 
 outputs:
   changes_made:
     description: Value is "true", if the repository changes were made from the replacement. Value is "false", if no changes were made.
-
-runs:
-  using: 'node20'
-  main: 'index.js'
 
 branding:
   icon: 'save'
