@@ -30,6 +30,12 @@ inputs:
   minimum_php_version_constant_name:
     description: 'Minimum PHP version constant name (if used)'
     required: false
+  minimum_mysql_version:
+    description: 'Minimum MySQL version'
+    required: false
+  minimum_mysql_version_constant_name:
+    description: 'Minimum MySQL version constant name (if used)'
+    required: false
   plugin_file:
     description: 'Plugin file'
     required: false
@@ -50,6 +56,8 @@ runs:
         echo minimum_wp_version_constant_name: ${{ inputs.minimum_wp_version_constant_name }}
         echo minimum_php_version: ${{ inputs.minimum_php_version }}
         echo minimum_php_version_constant_name: ${{ inputs.minimum_php_version_constant_name }}
+        echo minimum_mysql_version: ${{ inputs.minimum_mysql_version }}
+        echo minimum_mysql_version_constant_name: ${{ inputs.minimum_mysql_version_constant_name }}
         echo plugin_file: ${{ inputs.plugin_file }}
         echo plugin_path: ${{ inputs.plugin_path }}
       shell: bash
@@ -92,5 +100,10 @@ runs:
     - name: Update minimum PHP version
       if: "${{ inputs.minimum_php_version != '' }}"
       run: npm run update-minimum-php-version --minimum_php_version="${{ inputs.minimum_php_version }}" --minimum_php_version_constant_name="${{ inputs.minimum_php_version_constant_name }}" --plugin_file="${{ inputs.plugin_file }}" --plugin_path="${{ inputs.plugin_path }}"
+      working-directory: ${{ github.action_path }}
+      shell: bash
+    - name: Update minimum MySQL version
+      if: "${{ inputs.minimum_mysql_version != '' }}"
+      run: npm run update-minimum-mysql-version --minimum_mysql_version="${{ inputs.minimum_mysql_version }}" --minimum_mysql_version_constant_name="${{ inputs.minimum_mysql_version_constant_name }}" --plugin_file="${{ inputs.plugin_file }}" --plugin_path="${{ inputs.plugin_path }}"
       working-directory: ${{ github.action_path }}
       shell: bash

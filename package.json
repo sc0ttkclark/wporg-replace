@@ -1,14 +1,15 @@
 {
   "name": "wporg-replace",
-  "version": "1.0.0",
+  "version": "1.0.7",
   "description": "A helpful GitHub action that will handle replacing version numbers across plugin files.",
   "scripts": {
     "update-plugin-version": "cd node_modules/wporg-replace-helper && npm run update-plugin-version",
-    "update-minimum-php-version": "cd node_modules/wporg-replace-helper && npm run update-minimum-php-version",
+    "update-tested-wp-version": "cd node_modules/wporg-replace-helper && npm run update-tested-wp-version",
     "update-minimum-wp-version": "cd node_modules/wporg-replace-helper && npm run update-minimum-wp-version",
-    "update-tested-wp-version": "cd node_modules/wporg-replace-helper && npm run update-tested-wp-version"
+    "update-minimum-php-version": "cd node_modules/wporg-replace-helper && npm run update-minimum-php-version",
+    "update-minimum-mysql-version": "cd node_modules/wporg-replace-helper && npm run update-minimum-mysql-version"
   },
   "dependencies": {
-    "wporg-replace-helper": "github:sc0ttkclark/wporg-replace-helper"
+    "wporg-replace-helper": "^1.0.1"
   }
 }
